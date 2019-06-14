@@ -15,8 +15,6 @@ import CoreData
 
 class DetailsController: UIViewController {
 
-    //selectedCoin deklaruar me poshte mbushet me te dhena nga
-    //controlleri qe e thrret kete screen (Shiko ListaController.swift)
     var selectedCoin:CoinCellModel!
     
     //IBOutlsets jane deklaruar me poshte
@@ -33,8 +31,6 @@ class DetailsController: UIViewController {
     @IBOutlet weak var lblCmimiUSD: UILabel!
     @IBOutlet weak var lblCoinName: UILabel!
     
-    //APIURL per te marre te dhenat te detajume per coin
-    //shiko: https://www.cryptocompare.com/api/ per detaje
     let APIURL = "https://min-api.cryptocompare.com/data/pricemultifull"
     
     let appdelegate = UIApplication.shared.delegate as! AppDelegate
@@ -43,42 +39,22 @@ class DetailsController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //brenda ketij funksioni, vendosja foton imgFotoja Outletit
-        //duke perdorur AlamoFireImage dhe funksionin:
-        //af_setImage(withURL:URL)
-        //psh: imgFotoja.af_setImage(withURL: URL(string: selectedCoin.imagePath)!)
-        //Te dhenat gjenerale per coin te mirren nga objeti selectedCoin
-        
-       // let ikonaURL:URL = URL.init(string: selectedCoin.imagePath)!
-        
-      //  imgFotoja.af_setImage(withURL: URL(string: selectedCoin.imagePath)!)
-        
         imgFotoja.af_setImage(withURL: URL(string: selectedCoin.imagePath)!)
         lblCoinName.text = selectedCoin.coinName
-        
-        //Krijo nje dictionary params[String:String] per ta thirrur API-ne
-        //parametrat qe duhet te jene ne kete params:
-        //fsyms - Simboli i Coinit (merre nga selectedCoin.coinSymbol)
-        //tsyms - llojet e parave qe na duhen: ""BTC,USD,EUR""
-        
+      
         context = appdelegate.persistentContainer.viewContext
         
         let fsyms = selectedCoin.coinSymbol
         let tsyms = "BTC,USD,EUR"
         
         let params:[String:String] = ["fsyms":fsyms, "tsyms":tsyms]
-        
-        //Thirr funksionin getDetails me parametrat me siper
-        
+
         getDetails(params: params)
         
         
     }
 
     func getDetails(params:[String:String]){
-        //Thrret Alamofire me parametrat qe i jan jap funksionit
-        //dhe te dhenat qe kthehen nga API te mbushin labelat
-        //dhe pjeset tjera te view
         
         Alamofire.request(APIURL, method: .get, parameters: params).responseData { (responseData) in
             
@@ -118,17 +94,6 @@ class DetailsController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        
-//        if (segue.identifier == "shfaqDetajet") {
-//            
-//            let menuShfaq = segue.destination as! ListaController
-//            menuShfaq.delegate = self
-//        }
-//    }
-    
-    //IBAction mbylle - per butonin te gjitha qe mbyll ekranin
    
     @IBAction func btnMbyll(_ sender: Any) {
         
@@ -156,12 +121,6 @@ class DetailsController: UIViewController {
         }
         
     }
-    
-    
-//    func updateCoins(coin: CoinCellModel) {
-//
-//        selectedCoin = coin
-//    }
-//
+
 }
 
