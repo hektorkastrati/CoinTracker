@@ -12,8 +12,6 @@ import Alamofire
 import AlamofireImage
 import SwiftyJSON
 
-//Klasa permbane tabele kshtuqe duhet te kete
-//edhe protocolet per tabela
 class FavoritetController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
@@ -26,9 +24,7 @@ class FavoritetController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //Lexo nga CoreData te dhenat dhe ruaj me nje varg§
-        //qe duhet deklaruar mbi funksionin UIViewController
+      
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib.init(nibName: "CoinCell", bundle: nil), forCellReuseIdentifier: "coinCell")
